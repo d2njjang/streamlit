@@ -132,17 +132,8 @@ def process_all_apartments():
         
         if all_results:
             df = pd.DataFrame(all_results)
-            filename = f'real_estate_data_{datetime.now().strftime("%Y%m%d_%H%M%S")}.xlsx'
-            with pd.ExcelWriter(filename, engine='xlsxwriter') as writer:
-                # 20평대 시트 작성
-                small_df = df[(df['면적(평)'] >= 23) & (df['면적(평)'] <= 27)]
-                small_df.to_excel(writer, sheet_name='20평대', index=False)
 
-                # 30평대 시트 작성
-                large_df = df[df['면적(평)'] >= 32]
-                large_df.to_excel(writer, sheet_name='30평대', index=False)
-
-            st.write(f"\n데이터가 {filename}에 저장되었습니다.")
+            # 화면에 데이터 표시
             st.write("\n수집된 매물 정보:")
             st.dataframe(df[['아파트명', '가격', '면적(평)', '층수', '방향', '특징']])
         else:
